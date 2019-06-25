@@ -20,23 +20,15 @@ public class Data {
 	public static int i;
 	public static int j;
 	public static int lines;
+	public static String repTrans = "/home/khouloud/workspace/carrefourProject/data/transactions";
+	public static String repRef = "/home/khouloud/workspace/carrefourProject/data/references";
 
 	public static void main(String[] args) {
 
-		// définition d'un fichier
-		// File transactions = new File("/home/khouloud/outils/transactions" +
-		// "_"
-		// + DataUtility.dateTime.format(Calendar.getInstance().getTime()) +
-		// ".data");
-		// File references = new File("/home/khouloud/outils/references" + "_" +
-		// format(Calendar.getInstance().getTime())
-		// "DataUtility.dateTime.data ");
-		// la définition du writer doit se faire ici
 		// pour des raisons de visibilité
 		Writer writer = null;
 		try {
-			File transactions = new File("/home/khouloud/workspace/carrefourProject/data/transactions" + "_" + "prod"
-					+ "_" + DataUtility.strDate + ".data");
+			File transactions = new File(repTrans + "_" + "prod" + "_" + DataUtility.strDate + ".data");
 
 			// ouverture d'un flux de sortie sur un fichier
 			// a pour effet de créer le fichier
@@ -83,8 +75,8 @@ public class Data {
 			// for (String date : jour) {
 
 			try {
-				File references = new File("/home/khouloud/workspace/carrefourProject/data/references" + "_" + "prod"
-						+ "-" + DataUtility.generateString() + "_" + DataUtility.strDate + ".data");
+				File references = new File(repRef + "_" + "prod" + "-" + DataUtility.generateString() + "_"
+						+ DataUtility.strDate + ".data");
 
 				// ouverture d'un flux de sortie sur un fichier
 				// a pour effet de créer le fichier
