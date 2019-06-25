@@ -20,8 +20,8 @@ public class DataUtility {
 
 	public int textId;
 	public int magasin;
-	public int produit;
-	public int qte;
+	public static int prod;
+	public static int qte;
 	public double prix;
 	
 	
@@ -72,7 +72,7 @@ public class DataUtility {
 	//fonction pour gérer produit et qte 
 	public static int getRandomnumber(){
 		Random r = new Random();
-		int prod= r.nextInt();
+		prod = r.nextInt();
 		return prod;
 		
 	}

@@ -1,13 +1,20 @@
 package carrefourDataUtility;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -22,8 +29,11 @@ public class Data {
 	public static int lines;
 	public static String repTrans = "/home/khouloud/workspace/carrefourProject/data/transactions";
 	public static String repRef = "/home/khouloud/workspace/carrefourProject/data/references";
+	public Traitement traitement;
+	public static int prod = new DataUtility().getRandomIdtrans(1, 100);
+	public static int Qte = new DataUtility().getRandomIdtrans(1, 10);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		// pour des raisons de visibilité
 		Writer writer = null;
@@ -39,8 +49,7 @@ public class Data {
 			// writer.write("Bonjour le monde !");
 			for (lines = 1; lines < 1000; lines++) {
 				writer.write(DataUtility.getRandomIdtrans(1, 1000) + "|" + DataUtility.datetrans + "|"
-						+ DataUtility.generateString() + "|" + DataUtility.getRandomIdtrans(1, 100) + "|"
-						+ DataUtility.getRandomIdtrans(1, 10) + "\r\n");
+						+ DataUtility.generateString() + "|" + prod + "|" + Qte + "\r\n");
 
 			}
 
@@ -118,6 +127,27 @@ public class Data {
 			i++;
 		}
 
-	}
+		// une loop sur les fichiers récupérés
+		// List l = Traitement
+		// .readFileInList("/home/khouloud/workspace/carrefourProject/data/transactions_prod_20190625.data");
+		//
+		// Iterator<String> itr = l.iterator();
+		// while (itr.hasNext()){
+		// int sumQte = DataUtility.qte;
+		//
+		// }
+		// System.out.println(itr.next());
 
+		FileReader in = new FileReader(
+				"/home/khouloud/workspace/carrefourProject/data/transactions_prod_20190625.data");
+		BufferedReader br = new BufferedReader(in);
+		String line = br.readLine();
+		while (line != null) {
+			line.split("|");
+			System.out.println(line);
+			line = br.readLine();
+		}
+		in.close();
+
+	}
 }
