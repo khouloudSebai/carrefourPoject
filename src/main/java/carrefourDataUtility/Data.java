@@ -1,5 +1,6 @@
 package carrefourDataUtility;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,6 +31,7 @@ public class Data {
 	public static int lines;
 	public static String repTrans = "/home/khouloud/workspace/carrefourProject/data/transactions";
 	public static String repRef = "/home/khouloud/workspace/carrefourProject/data/references";
+	public static String TOP_100_Ventes = "/home/khouloud/workspace/carrefourProject/Resultat/Top_Ventes";
 	public Traitement traitement;
 	public static int prod = new DataUtility().getRandomIdtrans(1, 100);
 	public static int Qte = new DataUtility().getRandomIdtrans(1, 10);
@@ -139,15 +142,50 @@ public class Data {
 		// System.out.println(itr.next());
 
 		FileReader in = new FileReader(
-				"/home/khouloud/workspace/carrefourProject/data/transactions_prod_20190625.data");
+				"/home/khouloud/workspace/carrefourProject/data/references_prod-0a0b6965-bd26-4296-b974-35794feda1f2_20190625.data");
 		BufferedReader br = new BufferedReader(in);
-		String line = br.readLine();
-		while (line != null) {
-			line.split("|");
-			System.out.println(line);
-			line = br.readLine();
+
+		int count = 0;
+		int N = 99;
+		String line;
+
+		while ((line = br.readLine()) != null && count < N) {
+//			count++;
+			try {
+				File TOP_100_ventes = new File(
+						TOP_100_Ventes + "_0a0b6965-bd26-4296-b974-35794feda1f2_20190625" + "_20190625" + ".data");
+				writer = new FileWriter(TOP_100_ventes);
+                for(count = 1 ; count < N ; count++){
+				writer.write((line = br.readLine()) + "\r\n");
+                }
+
+			} catch (IOException e) {
+
+				// affichage du message d'erreur et de la pile d'appel
+				System.out.println("Erreur " + e.getMessage());
+				e.printStackTrace();
+
+			} finally {
+
+				// il se peut que l'ouverture du flux ait échoué,
+				// et que ce writer n'ait pas été initialisé
+				if (writer != null) {
+
+					try {
+
+						// la méthode close de FileWriter appelle elle-même
+						// flush()
+						writer.close();
+
+					} catch (IOException e) {
+
+						System.out.println("Erreur " + e.getMessage());
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 		in.close();
-
 	}
+
 }
